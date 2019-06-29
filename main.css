@@ -1,0 +1,173 @@
+html {
+  font-size: 62.5%;
+}
+
+:root {
+  --clr-primary: ;
+  --clr-primary-dark: ;
+  --clr-primary-light: ;
+  --animation-time: ;
+
+  --nav-height: ;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul, ol {
+  padding-left: 4rem;
+}
+
+body {
+  height: 100%;
+  padding-bottom: 4rem;
+  height: 100%;
+  font-size: 1.6rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.4;
+  background-color: aliceblue;
+}
+
+h1, h3 {
+  padding: .75em;
+  line-height: 1;
+  text-align: center;
+}
+
+h3 {
+  font-size: 2.8rem;
+}
+
+.subtitle {
+  display: block;
+  margin-top: 1rem;
+  font-size: calc(8px + .4em);
+  color: rgba(0, 0, 0, .7);
+}
+
+p {
+  font-size: 2rem;
+}
+
+code {
+  background: #c8d6e5;
+  color: #ee5253;
+}
+
+.page-container {
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-gap: 4rem;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+.container {
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+.container__em {
+  margin: 2rem;
+  padding: 2rem;
+  border: 1px solid rgba(0, 0, 0, .5);
+  border-radius: 5px;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, .25);
+}
+
+.flex-row-center {
+  justify-self: center;
+  padding: 2rem;
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+section {
+  padding: 2rem;
+  background: white;
+  border: 2px solid rgba(0, 0, 0, .5);
+}
+
+/* doesn't seem to work for conditionally rendered items */
+/* section p:not(:last-of-type) {
+  margin-bottom: 1em;
+} */
+
+.hover-note-about-styles {
+  position: relative;
+  width: fit-content;
+}
+
+.hover-note-about-styles::after {
+  position: absolute;
+  bottom: 0;
+  right: -110%;
+  padding: 2rem;
+  width: fit-content;
+  content: 'At the time of creation I don\'t know how to style this v-else conditionally. See notes in code.';
+  color: white;
+  background: #2e86de;
+}
+
+.user-card {
+  position: relative;
+  margin: 2rem;
+  padding: 0 2rem 2rem 2rem;
+  width: 50%;
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: 1fr;
+  align-items: center;
+  z-index: 2;
+
+  background: transparent;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, .5);
+  border-radius: 5px;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, .25);
+}
+
+.user-card::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4rem;
+  content: '';
+  z-index: 1;
+
+  background: #2e86de;
+}
+
+.user-card--name {
+  position: relative;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  z-index: 3;
+}
+
+.blue {
+  background: #2e86de;
+}
+
+.green {
+  background: #10ac84;
+}
+
+.red {
+  background: #ee5253;
+}
+
+.pink {
+  background: #f368e0;
+}

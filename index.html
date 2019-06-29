@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Basic Vue JS Usage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+</head>
+<body>
+
+  
+  <div id="app" class="page-container">
+    <header>
+      <h1>Eric's Super Basic Vue JS Example Page <span class="subtitle">Many thanks to Maximillian Schwarzmuller's <a href="https://www.youtube.com/playlist?list=PL55RiY5tL51p-YU-Uw90qQH419BM4Iz07">YouTube</a> series on Vue</span></h1>
+    </header>
+    
+    <!-- ===================================================================================================== -->
+
+    <section>
+      <h3>Directives <span class="subtitle">A special token in the markup that tells Vue to do something to a DOM element</span></h3>
+      <!-- v- tells Vue that it should handle something -->
+      <!-- Vue uses "directives" which are things like event handlers -->
+      <!-- v-on is a built in directive which acts as an event listner -->
+      <!-- there is a shorthand for v-on:click which is @click -->
+      <!-- this first button shows one way of dynamically updating content -->
+      <!-- Vue will update the data.title in our JS to be 'New Title' -->
+      <button v-on:click="title = 'New title'">Change Title</button>
+      <!-- this second button shows how to use a method to dynamically change content  -->
+      <!-- methods are defined on our Vue instance -->
+      <button v-on:click="changeTitle">Change Title Again</button>
+      <p>{{ title }}</p>
+    </section>
+
+    <!-- ===================================================================================================== -->
+
+    <section>
+      <h3>Conditional CSS Rendering</h3>
+      <p>type one of the class names on the list to update the CSS class</p>
+      <ul>
+        <li>blue</li>
+        <li>green</li>
+        <li>red</li>
+        <li>pink</li>
+      </ul>
+      <!-- $event is not the default event object in JS -->
+      <!-- so it is not technically the same as calling e.target.value -->
+      <!-- it is a kind of local variable with access to any data the event gives us -->
+      <!-- we happen to get data from the event object in this case, but Vue allows for additional customization -->
+      <input type="text" v-on:input="cssClass = $event.target.value">
+      <!-- You can't use {{}} in a normal HTML attribute like class="" -->
+      <!-- instead Vue has a directive that can be used v-bind: -->
+      <!-- the shorthand version is to just use the colon, :class="" -->
+      <p v-bind:class="cssClass">CSS Class: {{ cssClass }}</p>
+    </section>
+
+    <!-- ===================================================================================================== -->
+
+    <section class="container">
+      <h3>These All Perform The Same Task In Slightly Different Ways</h3>
+      <div class="flex-row-center">
+        <div>
+          <button v-on:click="increment">Increment</button>
+          <p>Clicks: {{ clicks }}</p>
+          <p>Counter: {{ counter }}</p>
+        </div>
+        <div>
+          <button v-on:click="incrementTwo">Increment</button>
+          <p>Clicks: {{ clicksTwo }}</p>
+          <p>Counter: {{ counterTwo }}</p>
+        </div>
+        <div>
+          <button v-on:click="incrementThree">Increment</button>
+          <p>Clicks: {{ clicksThree }}</p>
+          <!-- this is an example of a computed property -->
+          <p>Counter: {{ counterThree }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================================================== -->
+
+    <section>
+      <h3>Basic conditional rendering</h3>
+      <button v-on:click="vIf = !vIf">Show / Hide</button>
+      <p>I'm visible all the time</p>
+      <!-- v-if is a directive for conditionally displaying an element -->
+      <!-- v-if looks for truthy and falsy values -->
+      <!-- when v-if="false" (falsy) the element is completely removed from the DOM -->
+      <p v-if="0">I'm just here to illustrate the point about falsy values</p>
+      <!-- it seems like styles aren't applied correctly sometimes -->
+      <!-- an example is section p:not(:last-of-type) -->
+      <!-- perhaps due to it not being on the page when the styles load -->
+      <p v-if="vIf">I am visible when v-if="true"</p>
+      <!-- the element with v-else must immediately the element with v-if or a v-else-if -->
+      <!-- does not have to be the same kind of element as show here -->
+      <div v-else class="hover-note-about-styles">I am visible only when v-if is not visible</div>
+      <button v-on:click="show = !show">Show / Hide</button>
+      <p v-show="show">I'm conditionally displayed using v-show</p>
+      <article class="container container__em">
+      <h3>From the Vue Doc:</h3>
+        <p><code>v-if</code>&nbsp;is &ldquo;real&rdquo; conditional rendering because it ensures that event listeners and child components inside the conditional block are properly destroyed and re-created during toggles.</p>
+        <p><code>v-if</code>&nbsp;is also&nbsp;<strong>lazy</strong>: if the condition is false on initial render, it will not do anything - the conditional block won&rsquo;t be rendered until the condition becomes true for the first time.</p>
+        <p>In comparison,&nbsp;<code>v-show</code>&nbsp;is much simpler - the element is always rendered regardless of initial condition, with CSS-based toggling.</p>
+        <p>Generally speaking,&nbsp;<code>v-if</code>&nbsp;has higher toggle costs while&nbsp;<code>v-show</code>&nbsp;has higher initial render costs. <u>So prefer&nbsp;<code>v-show</code>&nbsp;if you need to toggle something very often, and prefer&nbsp;<code>v-if</code>&nbsp;if the condition is unlikely to change at runtime.</u></p>
+      </article>
+    </section>
+
+    <section>
+      <h3>Conditional rendering with a v-else-if</h3>
+      <input type="text" v-on:input="fruit = $event.target.value">
+      <p>please type an input from the fruit below</p>
+      <ul>
+        <li>cherry</li>
+        <li>banana</li>
+        <li>apple</li>
+        <li>peach</li>
+        <li>lemon</li>
+      </ul>
+      <p v-if="fruit === 'cherry'">🍒</p>
+      <p v-if="fruit === 'banana'">🍌</p>
+      <p v-if="fruit === 'apple'">🍏</p>
+      <p v-if="fruit === 'peach'">🍑</p>
+      <p v-if="fruit === 'lemon'">🍋</p>
+    </section>
+    
+    <section>
+      <h3>Conditionally rendering multiple elements with template</h3>
+      <p>The <code><strong>&lt;template&gt;&lt;/template&gt;</strong></code> element is an HTML5 element that allows for markup that is not rendered when the page loads but rather is rendered by JavaScript later.</p>
+      <div class="container container__em">
+        <p>To quote MDN:</p>
+        <p>The&nbsp;<strong>HTML Content Template (<code>&lt;template&gt;</code>) element</strong>&nbsp;is a mechanism for holding&nbsp;<a title="HTML: HTML (HyperText Markup Language) is a descriptive language that specifies webpage structure." href="https://developer.mozilla.org/en-US/docs/Glossary/HTML">HTML</a>&nbsp;that is not to be rendered immediately when a page is loaded but may be instantiated subsequently during runtime using JavaScript.</p>
+        <p>Think of a template as a content fragment that is being stored for subsequent use in the document. While the parser does process the contents of the&nbsp;<strong><code>&lt;template&gt;</code>&nbsp;</strong>element while loading the page, it does so only to ensure that those contents are valid; the element's contents are not rendered, however.</p>
+      </div>
+      <p>Show more information about the template element and conditional rendering?</p>
+      <!-- Did not work as expected -->
+      <!-- <select v-on:input="templateCondition = $event.target.value">
+        <option value="false">No</option>
+        <option value="true">Yes</option>
+      </select> -->
+      <button v-on:click="templateCondition = !templateCondition">Yes / No</button>
+      <template v-if="templateCondition">
+        <div>
+          <p>The <code>v-if</code> directive can only be attached to one element.</p>
+          <p>If we want to toggle more than one element we need to use an HTML <code>&lt;template&gt;</code> element.</p>
+          <p>This is an example of multiple elements that are rendered conditionally.</p>
+          <p>The template element is a useful wrapper than is not rendered to the DOM.</p>
+          <p>In that way it's sort of the like &lt;Fragment /&gt; in React.</p>
+        </div>
+      </template>
+    </section>
+
+    <!-- ===================================================================================================== -->
+
+    <section>
+      <h3>Output a List</h3>
+      <!-- v-for is used like a loop in JS -->
+      <!-- note that it is possible to use 'of' -->
+      <!-- v-for"fruit of fruitArr" -->
+      <ul>
+        <li v-for="fruit in fruitArr">{{ fruit }}</li>
+      </ul>
+      <div v-for="user in users" class="user-card">
+        <p class="user-card--name">{{ user.name}}</p>
+        <p>{{ user.email }}</p>
+        <p>{{ user.phone }}</p>
+        <p>{{ user.website }}</p>
+      </div>
+    </section>
+ 
+    <!-- ===================================================================================================== -->
+
+    <section>
+      <h3>Filters</h3>
+      <p>Filters are essentially just simple functions with limited use as far as I can tell 🤷‍♂️</p>
+      <p>The Vue docs say that filters: "...can be used to apply common text formatting."</p>
+      <p>Type something into these input fields and see what happens.</p>
+      <div class="container container__em">
+        <input type="text" v-on:input="filterMe = $event.target.value">
+        <!-- the filter is denoted by the pipe -->
+        <!-- multiple filters can be chained by using multiple pipes -->
+        <!-- {{ data | filterName1 | filterName2 | filterName3 }} -->
+        <p>{{ filterMe | upperCase }}</p>
+      </div>
+      <div class="container container__em">
+        <input type="text" v-on:input="filterMeToo = $event.target.value">
+        <p>{{ filterMeToo | funkyCapitalize }}</p>
+      </div>
+    </section>
+
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="main.js"></script>
+</body>
+</html>
