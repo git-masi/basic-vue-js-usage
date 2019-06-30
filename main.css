@@ -156,6 +156,12 @@ section {
   z-index: 3;
 }
 
+.component {
+  margin: 2rem;
+  padding: 2rem;
+  border: 1px dashed #222f3e;
+}
+
 .blue {
   background: #2e86de;
 }

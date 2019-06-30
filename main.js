@@ -1,3 +1,32 @@
+// This is a global component
+// It can be used on any Vue instance
+// To instantiate a component call Vue.component()
+// Pass in a name as the first argument
+// Pass in an object as the second argument
+// ***********************************************IMPORTANT***********************************************
+// The component must be defined before the Vue instance
+// If you try to define it after new Vue() below it will fail silently
+// The component must render only one root element in the template (you can have multiple children though)
+// So, if you use v-for you must wrap that in a parent element
+// <template></template> will not work as a parent element (I think)
+// ***********************************************/IMPORTANT***********************************************
+Vue.component('color-box', {
+  // data is now a function that returns an object
+  data: function () {
+    return {
+      colors: [
+        {'#feca57': 'casandora yellow'},
+        {'#5f27cd': 'nasu purple'},
+        {'#0abde3': 'cyanite'},
+        {'#10ac84': 'dark mountain meadow'},
+        {'#2e86de': 'blue de france'},
+        {'#ee5253': 'armour'},
+      ],
+    }
+  },
+  template: '<div class="component"><div v-for="color of colors"><p>{{ Object.values(color)[0] }}</p></div></div>'
+});
+
 new Vue({
   el: '#app', // the element Vue JS will control, called the "template"
   data: { // data is a reserved word in Vue values are generally called using {{}} syntax or a Vue directive
@@ -132,6 +161,17 @@ new Vue({
       if (!value) return ''
       value = value.toString()
       return value.toUpperCase();
+    }
+  },
+  // These are local components
+  components: {
+    'test-component': {
+      data: function () {
+        return {
+          message: 'This is an example of a simple local component'
+        }
+      },
+      template: '<div class="component"><p>{{ message }}</p></div>'
     }
   }
 });
